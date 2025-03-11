@@ -1,0 +1,9 @@
+[package]
+name = "BevyGame"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+bevy = { version = "0.15.3" }
+bevy_egui = "0.33.0"
+rand = "0.9.0"
