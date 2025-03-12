@@ -34,3 +34,5 @@ fn main() {
         .add_systems(Update, exit_game)
         .run();
 }
+
+// Added some useless stuff (Hope no one sees it)
