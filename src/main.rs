@@ -1,38 +1,36 @@
 use bevy::prelude::*;
 
-mod events;
-use events::*;
 
 mod systems;
 use systems::*;
-mod star;
- mod score;
 
-mod player;
-mod enemy;
+mod game;
+mod main_menu;
+mod events;
 
-
-
-
-
-use std::fmt::Pointer;
-use bevy::audio::{AddAudioSource};
-use crate::enemy::EnemyPlugin;
-use crate::player::PlayerPlugin;
-use crate::score::ScorePlugin;
-use crate::star::StarPlugin;
+use crate::game::GamePlugin;
 
 fn main() {
     App::new()
-        .add_plugins(ScorePlugin)
-        .add_plugins(PlayerPlugin)
-        .add_plugins(StarPlugin)
-        .add_plugins(EnemyPlugin)
+        //Bevy plugins
         .add_plugins(DefaultPlugins)
-        .add_event::<GameOver>()
+        .init_state::<AppState>()
+        // My plugins
+        .add_plugins(GamePlugin)
+        // StartUp Systems
         .add_systems(Startup, spawn_camera)
+        //Systems
+        .add_systems(Update, transition_to_game_state)
+        .add_systems(Update, transition_to_main_menu)
         .add_systems(Update, exit_game)
+        .add_systems(Update,handle_game_over)
         .run();
 }
 
-// Added some useless stuff (Hope no one sees it)
+#[derive(States, Debug,Hash, PartialEq, Clone, Copy,Eq,Default)] // Required for Bevy's state system
+pub enum AppState {
+    #[default]
+    MainMenu,
+    Game,
+    GameOver,
+}

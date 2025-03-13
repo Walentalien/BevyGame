@@ -7,12 +7,12 @@ use bevy::sprite::Anchor;
 use bevy::window::PrimaryWindow;
 
 
-use crate::player::components::*;
-use crate::score::resources::*;
-use crate::enemy::components::*;
-use crate::enemy::*;
-use crate::star::components::*;
-use crate::star::STAR_SIZE;
+use crate::game::player::components::*;
+use crate::game::score::resources::*;
+use crate::game::enemy::components::*;
+use crate::game::enemy::*;
+use crate::game::star::components::*;
+use crate::game::star::STAR_SIZE;
 use crate::events::GameOver;
 
 pub const PLAYER_SPEED: f32 = 500.0;
@@ -43,6 +43,16 @@ pub fn spawn_player(
         )
     );
 
+}
+
+pub fn despawn_player(
+    mut commands: Commands,
+    player_query: Query<Entity, With<Player>>,
+){
+    if let Ok(player_entity) = player_query.get_single() {
+        commands.entity(player_entity).despawn();
+        println!("Player despawned");
+    }
 }
 pub fn player_movement(
     keyboard_input: Res<ButtonInput<KeyCode>>,

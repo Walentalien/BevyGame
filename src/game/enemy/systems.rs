@@ -4,11 +4,9 @@ use bevy::math::{Vec2, Vec3};
 use bevy::prelude::{Commands, Query, Res, Sprite, Time, Transform, Window, With};
 use bevy::window::PrimaryWindow;
 use rand::{random, Rng};
-use crate::enemy::*;
-use crate::enemy::components::*;
-//use crate::enemy::enemy_constants::*;
-//alternative:
-// use super::components::*;
+use crate::game::enemy::*;
+use crate::game::enemy::components::*;
+//TODO: spawn_enemies_ober_time, tick_enemy_spawn_timer
 
 
 
@@ -46,6 +44,14 @@ pub fn spawn_enemies(
 
 }
 
+pub fn despawn_enemies(
+    mut commands: Commands,
+    enemy_query: Query<Entity,With<Enemy>>
+){
+    for enemy_entity in enemy_query.iter(){
+        commands.entity(enemy_entity).despawn();
+    }
+}
 
 
 pub fn enemy_movement(

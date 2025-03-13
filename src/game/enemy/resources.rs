@@ -1,6 +1,6 @@
 use bevy::prelude::{Resource, Timer};
 use bevy::prelude::TimerMode::Repeating;
-use crate::enemy::*;
+use crate::game::enemy::*;
 
 #[derive(Resource)]
 pub struct EnemySpawnTimer{
